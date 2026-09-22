@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的小宠物</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-box">
+        <h2 id="petName">小宠物</h2>
+        <div class="status">
+            <p>饱食度：<span id="hungry">100</span></p>
+            <p>心情值：<span id="mood">100</span></p>
+            <p>成长阶段：<span id="stage">幼体</span></p>
+        </div>
+
+        <div class="pet-area">
+            <!-- 对话气泡 -->
+            <div id="bubble" class="bubble"></div>
+            <img id="petImg" src="pet_baby.png" alt="宠物">
+        </div>
+
+        <div class="btn-group">
+            <button id="feedBtn">喂食</button>
+            <button id="touchBtn">抚摸</button>
+            <button id="resetBtn">重置宠物（仅测试）</button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
