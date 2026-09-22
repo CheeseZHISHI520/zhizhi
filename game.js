@@ -132,3 +132,64 @@ document.getElementById("resetBtn").onclick = function(){
 
 // 页面加载渲染一次
 render();
+const petImg = document.getElementById("petImg");
+const petBox = document.querySelector(".pet-box");
+
+let pet = {
+  x: 100,
+  y: 100,
+  vx: 1.2,
+  vy: 0.6,
+  width: 120,
+  height: 120,
+  idleTimer: 0,
+  isIdle: false
+};
+
+function changeDirection() {
+  pet.vx = (Math.random() * 2 - 1) * 1.2;
+  pet.vy = (Math.random() * 2 - 1) * 0.8;
+}
+
+function walkLoop() {
+  const areaDom = document.querySelector(".pet-area");
+  const areaW = areaDom.clientWidth;
+  const areaH = areaDom.clientHeight;
+
+  if (pet.isIdle) {
+    pet.idleTimer--;
+    if (pet.idleTimer <= 0) {
+      pet.isIdle = false;
+      changeDirection();
+    }
+  } else {
+    pet.x += pet.vx;
+    pet.y += pet.vy;
+
+    if (pet.x <= 0 || pet.x + pet.width >= areaW) {
+      pet.vx *= -1;
+      pet.x = Math.max(0, Math.min(pet.x, areaW - pet.width));
+    }
+    if (pet.y <= 0 || pet.y + pet.height >= areaH) {
+      pet.vy *= -1;
+      pet.y = Math.max(0, Math.min(pet.y, areaH - pet.height));
+    }
+
+    if (pet.vx < 0) {
+      petImg.classList.add("flip");
+    } else {
+      petImg.classList.remove("flip");
+    }
+
+    if(Math.random() < 0.008){
+      pet.isIdle = true;
+      pet.idleTimer = Math.floor(Math.random()*120 + 60);
+    }
+  }
+
+  petBox.style.left = pet.x + "px";
+  petBox.style.top = pet.y + "px";
+  requestAnimationFrame(walkLoop);
+}
+
+walkLoop();
